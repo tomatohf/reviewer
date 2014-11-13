@@ -2,7 +2,7 @@
   (:require [me.raynes.fs :as fs]
             [clojure.java.io :as io]))
 
-(defn files [dir, extension]
+(defn files [dir extension]
   (fs/find-files dir (re-pattern (str ".+\\." extension))))
 
 (defn lines [file]
