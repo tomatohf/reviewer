@@ -18,3 +18,14 @@
 (defmacro not-empty-with [coll & with]
  `(not-empty-let [name# ~coll]
     (if (seq '~with) [~@with name#] name#)))
+
+(def void-elements
+  '#{area base br col command embed hr img input keygen link meta param source track wbr})
+
+(defn contain-void-element? [s]
+  (some #(.contains s (str "</" % ">")) void-elements))
+
+(defn review-void-element [s]
+  (if (contain-void-element? s)
+    "end tags must not be specified for void elements"
+    nil))

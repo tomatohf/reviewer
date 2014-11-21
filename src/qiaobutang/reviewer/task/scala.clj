@@ -2,7 +2,7 @@
   (:require [qiaobutang.reviewer.util :as util]))
 
 (defn review-line [n line lines]
-  (util/not-empty-with []
+  (util/not-empty-with [(util/review-void-element line)]
                        (+ n 1) line))
 
 (defn review-file [file]
