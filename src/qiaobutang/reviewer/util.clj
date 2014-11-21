@@ -19,6 +19,18 @@
  `(not-empty-let [name# ~coll]
     (if (seq '~with) [~@with name#] name#)))
 
+(defn review-by-line [path extension f]
+  (let [review-line
+        (fn [n line lines]
+          (not-empty-with (f n line lines)
+                          (+ n 1) line))
+        review-file
+        (fn [file]
+          (let [lines (vec (lines file))]
+            (not-empty-with (map-indexed #(review-line %1 %2 lines) lines)
+                            file)))]
+    (not-empty-with (map review-file (files path extension)))))
+
 (def void-elements
   '#{area base br col command embed hr img input keygen link meta param source track wbr})
 
